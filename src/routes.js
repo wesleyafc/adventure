@@ -4,7 +4,7 @@ const Post = require('./models/Post')
 
 //feed?
 router.get('/', (request, response) => {
-    response.json({ name: 'feed', age: 23 })
+    response.json({ message: 'home' })
 })
 
 //todas as postagem feitas
@@ -35,6 +35,9 @@ router.get('/post/:id', async (request, response) => {
     }
 })
 
+router.get('/post', async (request, response) => {
+    response.render('../src/views/create')
+})
 //criar uma postagem
 router.post('/post', async (request, response) => {
     try {
@@ -46,20 +49,11 @@ router.post('/post', async (request, response) => {
             vip,
             likes
         })
-        return response.status(201).json(newPost)
+        return response.redirect('/')
 
     } catch (error) {
         return response.status(500).json({ "error": error })
     }
-
-    /**
-     *     { 
-            "title":"oi",
-            "description":"olaaa",
-            "vip":true,
-            "likes":0 
-        }
-     */
 
 })
 
