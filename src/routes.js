@@ -11,7 +11,8 @@ router.get('/', (request, response) => {
 router.get('/posts', async (request, response) => {
     try {
         const post = await Post.find()
-        return response.status(200).json(post)
+        return response.render('../src/views/allPosts', { posts: post })
+
     } catch (error) {
         return response.status(500).json({ "error": error })
     }
