@@ -20,10 +20,7 @@ router.get('/post', postController.formCreatePost)
 //create a new post
 router.post('/post', postController.createPost)
 
-/*****************************/
-/* this needs to be implemented */
-//router.put('/post', postController.formUpdatePost)
-/*****************************/
+router.get('/post-edit/:id', postController.editPost)
 
 //update post
 router.put('/post/:id', postController.update)
