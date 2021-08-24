@@ -1,107 +1,34 @@
 const express = require('express')
 const router = express.Router()
 const Post = require('./models/Post')
+const postController = require('../src/controllers/postController')
 
 //feed?
 router.get('/', (request, response) => {
     response.json({ message: 'home' })
 })
 
-//todas as postagem feitas
-router.get('/posts', async (request, response) => {
-    try {
-        const post = await Post.find()
-        return response.render('../src/views/allPosts', { posts: post })
+//show all posts
+router.get('/posts', postController.all)
 
-    } catch (error) {
-        return response.status(500).json({ "error": error })
-    }
-})
+//show one post
+router.get('/post/:id', postController.byID)
 
-//mostrar uma postagem pelo id
-router.get('/post/:id', async (request, response) => {
+//form to create a new post
+router.get('/post', postController.formCreatePost)
 
-    try {
-        const _id = request.params.id
-        const post = await Post.findOne({ _id })
+//create a new post
+router.post('/post', postController.createPost)
 
-        if (!post) {
-            return response.status(404).json({ post })
-        } else {
-            console.log(post)
-            return response.render('../src/views/singlePost', { post: post })
-        }
-    } catch (error) {
-        return response.status(500).json({ "error": error })
-    }
-})
+/*****************************/
+/* this needs to be implemented */
+//router.put('/post', postController.formUpdatePost)
+/*****************************/
 
-router.get('/post', async (request, response) => {
-    response.render('../src/views/create')
-})
-//criar uma postagem
-router.post('/post', async (request, response) => {
-    try {
-        const { title, description, vip, likes } = request.body
+//update post
+router.put('/post/:id', postController.update)
 
-        const newPost = await Post.create({
-            title,
-            description,
-            vip,
-            likes
-        })
-        return response.redirect('/')
-
-    } catch (error) {
-        return response.status(500).json({ "error": error })
-    }
-
-})
-
-//atualizar uma postagem
-router.put('/post/:id', async (request, response) => {
-
-    try {
-        const _id = request.params.id
-        const { title, description, vip, } = request.body
-        let post = await Post.findOne({ _id })
-
-        if (!post) {
-            return response.status(404).json({ post })
-
-        } else {
-            post.title = title
-            post.description = description
-            post.vip = vip
-
-            await post.save()
-
-            return response.status(200).json(post)
-        }
-    } catch (error) {
-        return response.status(500).json({ "error": error })
-    }
-
-})
-
-//deletar  uma postagem
-router.delete('/post/:id', async (request, response) => {
-
-    try {
-        const _id = request.params.id
-        const post = await Post.deleteOne({ _id })
-
-        if (post.deleteCount === 0) {
-            return response.status(404).json()
-        } else {
-            return response.status(204).json()
-        }
-
-    } catch (error) {
-        return res.status(500).json({ "error": error })
-    }
-})
-
-
+//delete post
+router.delete('/post/:id', postController.delete)
 
 module.exports = router
