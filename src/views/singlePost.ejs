@@ -10,18 +10,27 @@
 
 <body>
     <h1>
-        <%= post.title %>
-            <br>
-            <%= post.description %>
-                <br>
-                vip{}=
-                <%= post.vip %>
-                    <br>
-                    likes
-                    <%= post.likes %>
-                        <br>
+        <p>
+            title:
+            <%= post.title %>
+        </p>
+        <img src="<%= post.imageURL %>" alt="">
 
-                        <%= post.date %>
+        <p>
+            description:
+            <%= post.description %>
+        </p>
+        <p>
+            vip:
+            <%= post.vip %>
+        </p>
+
+        <p>likes:
+            <%= post.likes %>
+        </p>
+        <p>
+            <%= post.date %>
+        </p>
     </h1>
 </body>
 

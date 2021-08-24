@@ -35,15 +35,17 @@ module.exports.formCreatePost = function (request, response) {
 
 module.exports.createPost = async function (request, response) {
     try {
-        const { title, description, vip, likes } = request.body
+        const { title, imageURL, description, vip, likes } = request.body
 
         const newPost = await Post.create({
             title,
+            imageURL,
             description,
             vip,
             likes
         })
-        return response.redirect('/')
+        return response.status(200).json(newPost)
+        //return response.redirect('/')
 
     } catch (error) {
         return response.status(500).json({ "error": error })
