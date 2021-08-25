@@ -55,29 +55,24 @@ module.exports.createPost = async function (request, response) {
 module.exports.editPost = async function (request, response) {
     try {
         const _id = request.params.id
-        const { title, description, vip, } = request.body
+        const { title, imageURL, description, vip, } = request.body
         let post = await Post.findOne({ _id })
         console.log(post)
 
 
 
-        return response.render('../src/views/editPost', { post: post })
+        response.render('../src/views/editPost', { post: post })
     } catch (error) {
         return response.status(500).json({ "error": error })
 
     }
-    //await post.save()
-
-    //return response.status(200).json(FindPost)
 
 }
-
-
 
 module.exports.update = async function (request, response) {
     try {
         const _id = request.params.id
-        const { title, description, vip, } = request.body
+        const { title, imageURL, description, vip, } = request.body
         let post = await Post.findOne({ _id })
 
         if (!post) {
@@ -86,11 +81,13 @@ module.exports.update = async function (request, response) {
         } else {
             post.title = title
             post.description = description
+            post.imageURL = imageURL
             post.vip = vip
 
             await post.save()
 
-            return response.status(200).json(post)
+            return response.render('../src/views/singlePost', { post: post })
+
         }
     } catch (error) {
         return response.status(500).json({ "error": error })

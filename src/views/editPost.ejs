@@ -9,21 +9,41 @@
 </head>
 
 <body>
+    <form action="/post/<%= post._id %>" method="POST">
 
-    <div>
+        <div>
+            <p>title:</p>
+            <input value="<%= post.title %>" type="text" name="title" id="">
 
-        <%= post.title %>
-    </div>
+        </div>
 
-    <div>
-        <%= post.description %>
+        <div>
+            <p>imageURL:</p>
 
-    </div>
+            <input value="<%= post.imageURL %>" type="text" name="imageURL" id="">
 
-    <div>
-        <%= post.vip %>
 
-    </div>
+        </div>
+
+        <div>
+            <p>description:</p>
+
+            <input value="<%= post.description %>" type="text" name="description" id="">
+
+
+        </div>
+
+        <div>
+            <p>vip:</p>
+
+            <input value="<%= post.vip %>" type="text" name="vip" id="">
+
+
+        </div>
+        <input type="submit" value="Submit">
+
+    </form>
+
 
 </body>
 

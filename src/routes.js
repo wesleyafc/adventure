@@ -20,10 +20,38 @@ router.get('/post', postController.formCreatePost)
 //create a new post
 router.post('/post', postController.createPost)
 
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////
 router.get('/post-edit/:id', postController.editPost)
 
+
+////////////////////
 //update post
-router.put('/post/:id', postController.update)
+router.post('/post/:id', postController.update)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //delete post
 router.delete('/post/:id', postController.delete)
