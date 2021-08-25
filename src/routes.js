@@ -25,6 +25,6 @@ router.get('/post-edit/:id', postController.editPost)
 router.post('/post/:id', postController.update)
 
 //delete post
-router.delete('/post/:id', postController.delete)
+router.get('/delete/:id', postController.delete)
 
 module.exports = router

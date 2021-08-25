@@ -4,6 +4,7 @@ const Post = require('../models/Post')
 module.exports.home = async function (request, response) {
     return response.render('../src/views/home')
 }
+
 module.exports.all = async function (request, response) {
     try {
         const post = await Post.find()
@@ -61,8 +62,9 @@ module.exports.editPost = async function (request, response) {
         let post = await Post.findOne({ _id })
         console.log(post)
 
-
-
+        if (!post) {
+            response.send(`this id ${_id} does not exist`)
+        }
         response.render('../src/views/editPost', { post: post })
     } catch (error) {
         return response.status(500).json({ "error": error })
@@ -99,14 +101,13 @@ module.exports.update = async function (request, response) {
 module.exports.delete = async function (request, response) {
     try {
         const _id = request.params.id
-        const post = await Post.deleteOne({ _id })
+        await Post.deleteOne({ _id })
 
-        if (post.deleteCount === 0) {
-            return response.status(404).json()
-        } else {
-            return response.status(204).json()
+        if (!_id) {
+            response.send('not exist')
         }
 
+        response.redirect('/')
     } catch (error) {
         return res.status(500).json({ "error": error })
     }
