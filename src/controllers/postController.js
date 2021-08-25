@@ -1,7 +1,9 @@
 //const Post = require('./models/Post')
 const Post = require('../models/Post')
 
-
+module.exports.home = async function (request, response) {
+    return response.render('../src/views/home')
+}
 module.exports.all = async function (request, response) {
     try {
         const post = await Post.find()
