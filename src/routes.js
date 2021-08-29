@@ -13,10 +13,10 @@ router.get('/posts', postController.all)
 router.get('/post/:id', postController.byID)
 
 //form to create a new post
-router.get('/post', postController.formCreatePost)
+router.get('/newpost', postController.formCreatePost)
 
 //create a new post
-router.post('/post', postController.createPost)
+router.post('/newpost', postController.createPost)
 
 //form to update a post
 router.get('/post-edit/:id', postController.editPost)
